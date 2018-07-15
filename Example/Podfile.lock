@@ -1,0 +1,16 @@
+PODS:
+  - DYLiveRoom (0.1.0)
+
+DEPENDENCIES:
+  - DYLiveRoom (from `../`)
+
+EXTERNAL SOURCES:
+  DYLiveRoom:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  DYLiveRoom: 00539234884993c612a1dd1b24cc97e83b346f63
+
+PODFILE CHECKSUM: 8c34ffcd8ebbbe63414a15cdf7477c0657e30c21
+
+COCOAPODS: 1.5.3

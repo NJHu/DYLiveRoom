@@ -1,42 +1,34 @@
-#
-# Be sure to run `pod lib lint DYLiveRoom.podspec' to ensure this is a
-# valid spec before submitting.
-#
-# Any lines starting with a # are optional, but their use is encouraged
-# To learn more about a Podspec see https://guides.cocoapods.org/syntax/podspec.html
-#
+
 
 Pod::Spec.new do |s|
-  s.name             = 'DYLiveRoom'
-  s.version          = '0.1.0'
-  s.summary          = 'A short description of DYLiveRoom.'
+s.name             = 'DYLiveRoom'
+s.version          = '1.0.0'
+s.summary          = 'DYLiveRoom, DYLiveRoom'
+s.homepage         = 'https://github.com/njhu/DYLiveRoom'
+s.author           = { 'njhu' => '64hp@163.com' }
+s.license          = { :type => 'MIT', :file => 'LICENSE' }
 
-# This description is used to generate tags and improve search results.
-#   * Think: What does it do? Why did you write it? What is the focus?
-#   * Try to keep it short, snappy and to the point.
-#   * Write the description between the DESC delimiters below.
-#   * Finally, don't worry about the indent, CocoaPods strips it!
+#s.source           = { :git => 'https://github.com/njhu/DYLiveRoom.git', :tag => s.version.to_s }
+s.source           = { :git => 'https://github.com/njhu/DYLiveRoom.git', :branch => 'master' }
 
-  s.description      = <<-DESC
-TODO: Add long description of the pod here.
-                       DESC
+s.description      = <<-DESC
+DYLiveRoom, DYLiveRoom, DYLiveRoom, DYLiveRoom, DYLiveRoom, DYLiveRoom, DYLiveRoom
+DESC
 
-  s.homepage         = 'https://github.com/njhu/DYLiveRoom'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'njhu' => '64hp@163.com' }
-  s.source           = { :git => 'https://github.com/njhu/DYLiveRoom.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
+s.ios.deployment_target = '10.3'
+s.requires_arc = true
+s.static_framework = true
 
-  s.ios.deployment_target = '8.0'
+s.source_files = 'DYLiveRoom/Classes/**/*'
 
-  s.source_files = 'DYLiveRoom/Classes/**/*'
-  
-  # s.resource_bundles = {
-  #   'DYLiveRoom' => ['DYLiveRoom/Assets/*.png']
-  # }
+s.resource_bundles = {
+'DYLiveRoom' => ['DYLiveRoom/Assets/**/*.{plist,webp,png}']
+}
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
+s.resources     = 'DYLiveRoom/**/*.{xcassets}'
+
+s.frameworks   = 'UIKit'
+s.dependency 'NJKit'
+s.dependency 'NJDYPlayer'
+
 end
