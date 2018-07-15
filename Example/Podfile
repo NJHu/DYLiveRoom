@@ -1,11 +1,30 @@
+
+def public_pods
+
+source 'https://github.com/CocoaPods/Specs.git' # 公有源
+
+end
+
+def njspec_pods
+source 'https://github.com/NJHu/NJSpecs.git' # NJ 私有源
+
+pod 'DYLiveRoom', :path => '../'
+end
+
+
+platform :ios, '10.3'
 use_frameworks!
 
 target 'DYLiveRoom_Example' do
-  pod 'DYLiveRoom', :path => '../'
+inhibit_all_warnings!
 
-  target 'DYLiveRoom_Tests' do
-    inherit! :search_paths
+njspec_pods
 
-    
-  end
+public_pods
+
+target 'DYLiveRoom_Tests' do
+inherit! :search_paths
+
+
+end
 end
