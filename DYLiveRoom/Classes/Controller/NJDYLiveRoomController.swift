@@ -10,7 +10,8 @@ import NJKit
 import NJDYPlayer
 
 public class NJDYLiveRoomController: NJViewController {
-    public var liveUrl: String?
+    public var roomId: String?
+    private var liveUrl: String?
     private let containerView = UIView()
     private var maskControlView = UIView()
     private var moviePlayer: NJPlayerController?
@@ -20,6 +21,22 @@ public class NJDYLiveRoomController: NJViewController {
         view.backgroundColor = UIColor.groupTableViewBackground
         setupPlayer()
         setupMaskControlView()
+        
+        if let roomId = self.roomId {
+            let elementId = "html5player-video"
+            let roomUrl = "https://www.douyu.com/\(roomId)"
+            // 获得直播流
+            NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, elementClass: nil, success: {[weak self] (roomUrl, streamUrl) in
+                
+                if self?.moviePlayer?.isPlaying != nil && !(self!.moviePlayer!.isPlaying) {
+                    self?.moviePlayer?.prepareToPlay(contentURLString: streamUrl)
+                }
+                
+            }) { (roomUrl, error) in
+                
+                
+            }
+        }
     }
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -31,6 +48,7 @@ public class NJDYLiveRoomController: NJViewController {
         super.viewWillDisappear(animated)
         moviePlayer?.shutdown()
     }
+    
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
     }
@@ -41,7 +59,7 @@ extension NJDYLiveRoomController {
         
         view.addSubview(containerView)
         containerView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        containerView.frame = CGRect(x: 0, y: nj_navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.75)
+        containerView.frame = CGRect(x: 0, y: nj_navigationBar.frame.maxY, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * 0.56)
         maskControlView.backgroundColor = UIColor.clear
         
         moviePlayer = NJPlayerController(containerView: containerView, delegate: self)
