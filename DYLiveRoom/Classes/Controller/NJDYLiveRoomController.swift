@@ -18,6 +18,7 @@ public class NJDYLiveRoomController: NJViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         nj_interactivePopDisabled = true
+        title = "斗鱼直播间"
         view.backgroundColor = UIColor.groupTableViewBackground
         setupPlayer()
         setupMaskControlView()
