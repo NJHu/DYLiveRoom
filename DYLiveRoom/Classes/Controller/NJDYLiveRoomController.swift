@@ -24,6 +24,7 @@ public class NJDYLiveRoomController: NJViewController {
         setupMaskControlView()
         
         if let roomId = self.roomId {
+            NJProgressHUD.showLoading(in: self.view)
             let elementId = "html5player-video"
             let roomUrl = "https://www.douyu.com/\(roomId)"
             // 获得直播流
@@ -32,9 +33,9 @@ public class NJDYLiveRoomController: NJViewController {
                 if self?.moviePlayer?.isPlaying != nil && !(self!.moviePlayer!.isPlaying) {
                     self?.moviePlayer?.prepareToPlay(contentURLString: streamUrl)
                 }
-                
+                NJProgressHUD.hideLoading(in: self?.view)
             }) {[weak self] (roomUrl, error) in
-                
+                NJProgressHUD.hideLoading(in: self?.view)
                 self?.navigationController?.popViewController(animated: true)
             }
         }
