@@ -26,7 +26,6 @@ public class NJDYLiveRoomController: NJViewController {
         if let roomId = self.roomId {
             NJProgressHUD.showLoading(in: self.view)
             let elementId = "html5player-video"
-            let elementClass = "video-4948d5"
             let roomUrl = "https://www.douyu.com/\(roomId)"
             // 获得直播流
             NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, elementClass: elementClass, success: {[weak self] (roomUrl, streamUrl) in
