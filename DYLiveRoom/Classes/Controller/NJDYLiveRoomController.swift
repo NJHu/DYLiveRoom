@@ -26,9 +26,10 @@ public class NJDYLiveRoomController: NJViewController {
         if let roomId = self.roomId {
             NJProgressHUD.showLoading(in: self.view)
             let elementId = "html5player-video"
+            let elementClass = "video-4948d5"
             let roomUrl = "https://www.douyu.com/\(roomId)"
             // 获得直播流
-            NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, elementClass: nil, success: {[weak self] (roomUrl, streamUrl) in
+            NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, elementClass: elementClass, success: {[weak self] (roomUrl, streamUrl) in
                 self?.liveUrl = streamUrl
                 if self?.moviePlayer?.isPlaying != nil && !(self!.moviePlayer!.isPlaying) {
                     self?.moviePlayer?.prepareToPlay(contentURLString: streamUrl)
@@ -75,8 +76,20 @@ extension NJDYLiveRoomController {
 }
 
 // MARK:- NJPlayerControllerDelegate
-extension NJDYLiveRoomController: NJPlayerControllerDelegate {
+extension NJDYLiveRoomController: NJPlayerControllerDelegate {}
+
+extension NJDYLiveRoomController: NJPlayerControllerPlaybackFinishDelegate {
     
+}
+
+extension NJDYLiveRoomController: NJPlayerControllerLoadStateDelegate {
+    
+}
+
+extension NJDYLiveRoomController: NJPlayerControllerPlaybackStateStateDelegate {
+    public func playerController(playbackState playerController: NJPlayerController, playing contentURLString: String) {
+        
+    }
 }
 
 // MARK:- StatusBar&Screen
@@ -91,7 +104,7 @@ extension NJDYLiveRoomController {
         return UIStatusBarAnimation.slide
     }
     public override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     // MARK: - about keyboard orientation
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -105,7 +118,5 @@ extension NJDYLiveRoomController {
 
 // MARK:- action
 extension NJDYLiveRoomController {
-    @objc func closeThisLiveRoom() {
-        dismiss(animated: true, completion: nil)
-    }
+
 }
