@@ -28,7 +28,7 @@ public class NJDYLiveRoomController: NJViewController {
             let elementId = "html5player-video"
             let roomUrl = "https://www.douyu.com/\(roomId)"
             // 获得直播流
-            NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, elementClass: elementClass, success: {[weak self] (roomUrl, streamUrl) in
+            NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, success: {[weak self] (roomUrl, streamUrl) in
                 self?.liveUrl = streamUrl
                 if self?.moviePlayer?.isPlaying != nil && !(self!.moviePlayer!.isPlaying) {
                     self?.moviePlayer?.prepareToPlay(contentURLString: streamUrl)
