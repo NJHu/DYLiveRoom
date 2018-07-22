@@ -58,7 +58,7 @@ extension NJDYLiveRoomController {
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if nj_interfaceOrientation_isPortrait {
+        if UIApplication.shared.nj_interfaceOrientation_isPortrait {
             containerView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * WHScale)
         }else {
             containerView.frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
