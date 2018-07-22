@@ -15,7 +15,6 @@ public class NJDYLiveRoomController: NJViewController {
     public var roomId: String?
     private var liveUrl: String?
     private let containerView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.width * WHScale))
-    private lazy var moviePlayer: NJPlayerController = NJPlayerController(containerView: self.containerView, delegate: self)
     override public func viewDidLoad() {
         super.viewDidLoad()
         setupLiveRoomUI()
@@ -27,8 +26,8 @@ public class NJDYLiveRoomController: NJViewController {
             // 获得直播流
             NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, success: {[weak self] (roomUrl, streamUrl) in
                 self?.liveUrl = streamUrl
-                if self?.moviePlayer.isPlaying != nil && !(self!.moviePlayer.isPlaying) {
-                    self?.moviePlayer.prepareToPlay(contentURLString: streamUrl)
+                if let containerView = self?.containerView {
+                    NJPlayerManager.sharedManager.prepareToPlay(contentURLString: streamUrl, in: containerView)
                 }
                 NJProgressHUD.hideLoading(in: self?.view)
             }) {[weak self] (roomUrl, error) in
@@ -70,8 +69,8 @@ extension NJDYLiveRoomController {
 extension NJDYLiveRoomController {
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let liveUrl = self.liveUrl, !moviePlayer.isPlaying {
-            moviePlayer.prepareToPlay(contentURLString: liveUrl)
+        if let liveUrl = self.liveUrl, !NJPlayerManager.sharedManager.isPlaying  {
+            NJPlayerManager.sharedManager.prepareToPlay(contentURLString: liveUrl, in: self.containerView)
         }
     }
     public override func viewDidAppear(_ animated: Bool) {
@@ -83,26 +82,26 @@ extension NJDYLiveRoomController {
     }
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        moviePlayer.shutdown()
+        NJPlayerManager.sharedManager.shutdown()
     }
 }
 
 // MARK:- NJPlayerControllerDelegate
-extension NJDYLiveRoomController: NJPlayerControllerDelegate {}
-
-extension NJDYLiveRoomController: NJPlayerControllerPlaybackFinishDelegate {
-    
-}
-
-extension NJDYLiveRoomController: NJPlayerControllerLoadStateDelegate {
-    
-}
-
-extension NJDYLiveRoomController: NJPlayerControllerPlaybackStateStateDelegate {
-    public func playerController(playbackState playerController: NJPlayerController, playing contentURLString: String) {
-        
-    }
-}
+//extension NJDYLiveRoomController: NJPlayerControllerDelegate {}
+//
+//extension NJDYLiveRoomController: NJPlayerControllerPlaybackFinishDelegate {
+//
+//}
+//
+//extension NJDYLiveRoomController: NJPlayerControllerLoadStateDelegate {
+//
+//}
+//
+//extension NJDYLiveRoomController: NJPlayerControllerPlaybackStateStateDelegate {
+//    public func playerController(playbackState playerController: NJPlayerController, playing contentURLString: String) {
+//
+//    }
+//}
 
 // MARK:- StatusBar&Screen
 extension NJDYLiveRoomController {
@@ -116,7 +115,7 @@ extension NJDYLiveRoomController {
         return UIStatusBarAnimation.slide
     }
     public override var shouldAutorotate: Bool {
-        return true
+        return false
     }
     // MARK: - about keyboard orientation
     public override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
