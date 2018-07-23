@@ -67,21 +67,25 @@ extension NJDYLiveRoomController {
 
 // MARK:- view-life
 extension NJDYLiveRoomController {
+    
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         if let liveUrl = self.liveUrl, !NJPlayerManager.sharedManager.isPlaying  {
             NJPlayerManager.sharedManager.prepareToPlay(contentURLString: liveUrl, in: self.containerView)
         }
+        print("\(self.liveUrl)viewWillAppear")
     }
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        print("\(self.liveUrl)viewDidAppear")
     }
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+        print("\(self.liveUrl)viewWillDisappear")
     }
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
+        print("\(self.liveUrl)viewDidDisappear")
         NJPlayerManager.sharedManager.shutdown()
     }
 }
