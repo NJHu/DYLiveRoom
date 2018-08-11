@@ -27,7 +27,7 @@ public class NJDYLiveRoomController: NJViewController {
             NJLiveRoomStreamTool.sharedTool.nj_getStreamUrl(roomH5Url: roomUrl, elementId: elementId, success: {[weak self] (roomUrl, streamUrl) in
                 self?.liveUrl = streamUrl
                 if let containerView = self?.containerView {
-                    NJPlayerManager.sharedManager.prepareToPlay(contentURLString: streamUrl, in: containerView)
+                    NJVideoPlayerManager.sharedManager.prepareToPlay(contentURLString: streamUrl, in: containerView, delegate: self!)
                 }
                 NJProgressHUD.hideLoading(in: self?.view)
             }) {[weak self] (roomUrl, error) in
@@ -66,8 +66,8 @@ extension NJDYLiveRoomController {
     
     public override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let liveUrl = self.liveUrl, !NJPlayerManager.sharedManager.isPlaying  {
-            NJPlayerManager.sharedManager.prepareToPlay(contentURLString: liveUrl, in: self.containerView)
+        if let liveUrl = self.liveUrl, !NJVideoPlayerManager.sharedManager.isPlaying  {
+            NJVideoPlayerManager.sharedManager.play()
         }
         print("\(self.liveUrl)viewWillAppear")
     }
@@ -82,26 +82,16 @@ extension NJDYLiveRoomController {
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         print("\(self.liveUrl)viewDidDisappear")
-        NJPlayerManager.sharedManager.shutdown()
+        NJVideoPlayerManager.sharedManager.shutdown()
     }
 }
 
-// MARK:- NJPlayerControllerDelegate
-//extension NJDYLiveRoomController: NJPlayerControllerDelegate {}
-//
-//extension NJDYLiveRoomController: NJPlayerControllerPlaybackFinishDelegate {
-//
-//}
-//
-//extension NJDYLiveRoomController: NJPlayerControllerLoadStateDelegate {
-//
-//}
-//
-//extension NJDYLiveRoomController: NJPlayerControllerPlaybackStateStateDelegate {
-//    public func playerController(playbackState playerController: NJPlayerController, playing contentURLString: String) {
-//
-//    }
-//}
+// MARK:- NJVideoPlayerManagerDelegate
+extension NJDYLiveRoomController: NJVideoPlayerManagerDelegate {
+    public func videoPlayerManager(_ videoPlayerManager: NJVideoPlayerManager, titleForContentURLString contentURLString: String) -> String? {
+        return (roomId ?? "") + (liveUrl ?? "")
+    }
+}
 
 // MARK:- StatusBar&Screen
 extension NJDYLiveRoomController {
