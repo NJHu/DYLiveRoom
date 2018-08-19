@@ -57,7 +57,7 @@ extension NJDYLiveRoomController {
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        containerView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.height, width: self.view.frame.width, height: self.view.frame.width * WHScale)
+        containerView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: self.view.frame.width, height: self.view.frame.width * WHScale)
     }
 }
 
