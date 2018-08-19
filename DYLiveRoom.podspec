@@ -22,10 +22,8 @@ s.static_framework = true
 s.source_files = 'DYLiveRoom/Classes/**/*'
 
 s.resource_bundles = {
-'DYLiveRoom' => ['DYLiveRoom/Assets/**/*.{plist,webp,png}']
+'DYLiveRoom' => ['DYLiveRoom/Assets/**/*.{plist,webp,png,xcassets}']
 }
-
-s.resources     = 'DYLiveRoom/**/*.{xcassets}'
 
 s.frameworks   = 'UIKit'
 s.dependency 'NJKit'
