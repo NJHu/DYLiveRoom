@@ -45,11 +45,12 @@ extension NJDYLiveRoomController {
         statusBarBg.backgroundColor = UIColor.black
         view.addSubview(statusBarBg)
         statusBarBg.snp.makeConstraints { (make) in
-            make.left.right.top.equalToSuperview()
+            make.left.right.equalToSuperview()
             make.height.equalTo(50)
+            make.top.equalToSuperview().offset(nj_navigationBar.frame.maxY)
         }
-        nj_navigationBar.isHidden = true
-        title = "斗鱼直播间"
+        nj_navigationBar.isHidden = false
+        title = "直播间"
         view.backgroundColor = UIColor.groupTableViewBackground
         view.addSubview(containerView)
         containerView.backgroundColor = UIColor.black
@@ -57,7 +58,7 @@ extension NJDYLiveRoomController {
     
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        containerView.frame = CGRect(x: 0, y: UIApplication.shared.statusBarFrame.maxY, width: self.view.frame.width, height: self.view.frame.width * WHScale)
+        containerView.frame = CGRect(x: 0, y: nj_navigationBar.frame.maxY, width: self.view.frame.width, height: self.view.frame.width * WHScale)
     }
 }
 
@@ -99,7 +100,7 @@ extension NJDYLiveRoomController {
         return false
     }
     public  override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+        return UIStatusBarStyle.default
     }
     public  override var preferredStatusBarUpdateAnimation: UIStatusBarAnimation {
         return UIStatusBarAnimation.slide
